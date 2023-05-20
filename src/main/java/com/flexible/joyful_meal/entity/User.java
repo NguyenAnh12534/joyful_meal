@@ -1,13 +1,16 @@
 package com.flexible.joyful_meal.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Table(
+        name = "users",
+        uniqueConstraints = @
+)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,13 +18,32 @@ import lombok.NoArgsConstructor;
 public class User {
 
     @Id
-    private int user_id;
+    @SequenceGenerator(
+            name = "user_sequence",
+            sequenceName = "user_seq",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "user_sequence"
+    )
+    private int userId;
+
 
     private String firstName;
     private String lastName;
+
+    @Column(name = "phone")
     private String phoneNumber;
-    private String payment_qr;
+
+    @Column(name = "payment_qr")
+    private String paymentQr;
+
+    @Column(name = "avatar_url")
     private String avartar;
+
+
     private String email;
     private String password;
+
 }
